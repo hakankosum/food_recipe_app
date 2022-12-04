@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -76,7 +77,7 @@ class _SearchViewState extends State<SearchView> {
                       margin: EdgeInsets.only(bottom: 2.h),
                       child: ListView.builder(
                         scrollDirection: Axis.vertical,
-                        itemCount: 10,
+                        itemCount: value.data.results!.length,
                         itemBuilder: (BuildContext context, int index) {
                           return InkWell(
                             onTap: () {
@@ -84,11 +85,14 @@ class _SearchViewState extends State<SearchView> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => RecipeView(
-                                        imageUrl: value.data.results![index].image! ,
-                                        nutritionByIdModel:
-                                            searchRecipesProvider!
-                                                .nutritionData[index], ingredientsByIdModel: searchRecipesProvider!
-                                                .ingredientData[index],),
+                                      imageUrl:
+                                          value.data.results![index].image!,
+                                      nutritionByIdModel: searchRecipesProvider!
+                                          .nutritionData[index],
+                                      ingredientsByIdModel:
+                                          searchRecipesProvider!
+                                              .ingredientData[index],
+                                    ),
                                   ));
                             },
                             child: Container(
@@ -101,12 +105,21 @@ class _SearchViewState extends State<SearchView> {
                                   Container(
                                     height: 10.h,
                                     width: 10.h,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                            fit: BoxFit.fitHeight,
-                                            image: NetworkImage(value
-                                                .data.results![index].image!))),
+                                    child:value.data.results![index].image ==null? Image.network("https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734"):CachedNetworkImage(
+                                      imageUrl:
+                                          value.data.results![index].image!,
+                                      errorWidget: (context, url, error) =>
+                                          const Icon(Icons.error),
+                                      imageBuilder: (context, imageProvider) =>
+                                          Container(
+                                        decoration: BoxDecoration(
+                                          image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill),
+                                        ),
+                                      ),
+                                      fit: BoxFit.fill,
+                                    ),
                                   ),
                                   SizedBox(width: 5.w),
                                   SizedBox(
