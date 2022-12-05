@@ -8,37 +8,29 @@ import '../models/ingredient_by_id_mode.dart';
 class IngredientByIdService {
   Dio dio = Dio();
   IngredientsByIdModel? data;
-  
+
   String url = "https://api.spoonacular.com/recipes/";
-  Map<String, String> headers = {
-    "x-api-key": apiKey
-  };
+  Map<String, String> headers = {"x-api-key": apiKey};
 
   Future<IngredientsByIdModel> GetIngredientById(String id) async {
     IngredientsByIdModel data = IngredientsByIdModel();
-    
 
     try {
-      Response res = await dio.get(url+"$id/ingredientWidget.json",
-        
-        options: Options(headers: headers));
-        data =IngredientsByIdModel.fromJson(res.data) ;
+      Response res = await dio.get(url + "$id/ingredientWidget.json",
+          options: Options(headers: headers));
+      data = IngredientsByIdModel.fromJson(res.data);
+
+      return data;
+    } catch (e) {
+      if (e is DioError) {
+        data.errorMessage = e.message;
 
         return data;
-      
-    } catch (e) {
-      if (e is DioError){
-        data.errorMessage=e.message;
-        
-        return data;
-        
-      }
-      else{
-        data.errorMessage="Unknown error";
-       
+      } else {
+        data.errorMessage = "Unknown error";
+
         return data;
       }
-      
     }
   }
 }

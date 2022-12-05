@@ -70,7 +70,7 @@ class _SearchViewState extends State<SearchView> {
                   return Text(value.data.errorMessage!);
                 } else {
                   if (value.data.totalResults == 0) {
-                    return Text("Not found!");
+                    return const Text("Not found!");
                   } else {
                     return Container(
                       height: 70.h,
@@ -105,6 +105,7 @@ class _SearchViewState extends State<SearchView> {
                                   Container(
                                     height: 10.h,
                                     width: 10.h,
+                                    decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
                                     child:value.data.results![index].image ==null? Image.network("https://upload.wikimedia.org/wikipedia/commons/5/59/Empty.png?20091205084734"):CachedNetworkImage(
                                       imageUrl:
                                           value.data.results![index].image!,
@@ -113,7 +114,9 @@ class _SearchViewState extends State<SearchView> {
                                       imageBuilder: (context, imageProvider) =>
                                           Container(
                                         decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.circular(20),
                                           image: DecorationImage(
+                                            
                                               image: imageProvider,
                                               fit: BoxFit.fill),
                                         ),
@@ -140,7 +143,7 @@ class _SearchViewState extends State<SearchView> {
                                         CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        "${value.nutritionData[index].calories}cal/portion",
+                                        "${value.nutritionData[index].calories}cal",
                                         style: TextStyle(fontSize: 16),
                                       ),
                                       Text(

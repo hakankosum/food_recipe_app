@@ -1,4 +1,4 @@
-#Sun Dec 04 10:34:26 TRT 2022
-base.0=C\:\\Users\\hakan\\Desktop\\flutter\\food_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
+#Mon Dec 05 13:12:00 TRT 2022
+base.0=C\:\\Users\\ISKUR.DESKTOP-AIKEIHG\\Desktop\\food_recipe_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

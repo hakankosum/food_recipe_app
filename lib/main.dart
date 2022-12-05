@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/provider/instructions_provider.dart';
 
 import 'package:food_app/provider/search_recipes_provider.dart';
 import 'package:food_app/screens/search_view.dart';
@@ -9,6 +10,9 @@ void main() => runApp(
       MultiProvider(providers: [
         ChangeNotifierProvider(
           create: (context) => SearchRecipesProvider(),
+        ),
+         ChangeNotifierProvider(
+          create: (context) => InstructionsProvider(),
         ),
 
       ], child: const MyApp()),
@@ -27,6 +31,6 @@ class MyApp extends StatelessWidget {
         );
       },
     );
-    ;
+    
   }
 }

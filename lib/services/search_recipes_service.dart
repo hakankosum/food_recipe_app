@@ -20,6 +20,7 @@ class SearchRecipeService {
         options: Options(headers: headers));
         data =SearchRecipesModel.fromJson(res.data) ;
 
+
         return data;
       
     } catch (e) {
