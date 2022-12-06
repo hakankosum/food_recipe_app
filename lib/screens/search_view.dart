@@ -85,6 +85,7 @@ class _SearchViewState extends State<SearchView> {
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => RecipeView(
+                                      id:value.data.results![index].id.toString(),
                                       imageUrl:
                                           value.data.results![index].image!,
                                       nutritionByIdModel: searchRecipesProvider!

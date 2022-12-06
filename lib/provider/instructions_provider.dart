@@ -7,16 +7,30 @@ class InstructionsProvider extends ChangeNotifier {
   InstructionsModel data = InstructionsModel();
 
   bool isLoaded = false;
-  bool showInstructions = false;
+  bool? showInstructions;
+
 
   GetInstructions(String id) async {
-    isLoaded=false;
+    isLoaded = false;
     data = await _service.GetInstructions(id);
 
-    print(isLoaded);
     isLoaded = true;
-    print(isLoaded);
 
+    notifyListeners();
+  }
+
+  changeVisibility() {
+    if (showInstructions.runtimeType == null) {
+      showInstructions = true;
+    }
+    else if (showInstructions==true) {
+      showInstructions=false;
+    }
+    else if (showInstructions==false) {
+      showInstructions=true;
+    }
+
+    print(showInstructions);
     notifyListeners();
   }
 }

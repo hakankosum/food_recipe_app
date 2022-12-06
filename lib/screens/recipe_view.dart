@@ -10,6 +10,7 @@ import '../models/nutrition_by_id_model.dart';
 import 'animations/ingredient_column.dart';
 
 class RecipeView extends StatefulWidget {
+  final String id;
   final String imageUrl;
   final NutritionByIdModel nutritionByIdModel;
   final IngredientsByIdModel ingredientsByIdModel;
@@ -18,7 +19,8 @@ class RecipeView extends StatefulWidget {
       {super.key,
       required this.nutritionByIdModel,
       required this.ingredientsByIdModel,
-      required this.imageUrl});
+      required this.imageUrl,
+      required this.id});
 
   @override
   State<RecipeView> createState() => _RecipeViewState();
@@ -31,7 +33,8 @@ class _RecipeViewState extends State<RecipeView> {
 
   @override
   void initState() {
-    instructionsProvider =Provider.of<InstructionsProvider>(context, listen: false);
+    instructionsProvider =
+        Provider.of<InstructionsProvider>(context, listen: false);
     super.initState();
   }
 
@@ -101,7 +104,8 @@ class _RecipeViewState extends State<RecipeView> {
                         children: [
                           IngredientColumn(
                               color: Colors.blue,
-                              widgetWidth: (proteinAmount / totalAmount) * 50.w),
+                              widgetWidth:
+                                  (proteinAmount / totalAmount) * 50.w),
                           Text(
                             " Protein ${widget.nutritionByIdModel.protein}",
                             style: _textStyle,
@@ -129,7 +133,8 @@ class _RecipeViewState extends State<RecipeView> {
                       ),
                       SizedBox(
                         height:
-                            widget.ingredientsByIdModel.ingredients!.length * 3.2.h,
+                            widget.ingredientsByIdModel.ingredients!.length *
+                                3.2.h,
                         child: ListView.builder(
                           physics: NeverScrollableScrollPhysics(),
                           itemCount:
@@ -161,41 +166,64 @@ class _RecipeViewState extends State<RecipeView> {
                 ],
               ),
             ),
-            IconButton(
-                onPressed: () {
-                  instructionsProvider.GetInstructions("324694");
+            SizedBox(
+              height: 3.h,
+            ),
+            Center(
+              child: Container(
+                height: 8.h,
+                width: 40.w,
+                decoration: BoxDecoration(
+                    color: Colors.blueAccent,
+                    borderRadius: BorderRadius.circular(15)),
+                child: IconButton(onPressed: () {
+                  instructionsProvider.GetInstructions(widget.id);
 
-                },
-                icon: Icon(Icons.add)),
+                  instructionsProvider.changeVisibility();
+                }, icon: Consumer(
+                  builder: (BuildContext context, InstructionsProvider value,
+                      Widget? child) {
+                    return Text(value.showInstructions! ? "Hide Instructions" : "Show Instructions");
+                  },
+                )),
+              ),
+            ),
             Consumer(
               builder: (context, InstructionsProvider value, child) {
-                
-                if (instructionsProvider.isLoaded==true) {
-                  
-                  return SizedBox(
-                    
-                    height: instructionsProvider.data.steps!.length * 10.h,
-                    width: 100.w,
-                    child: ListView.builder(
-                      physics: NeverScrollableScrollPhysics(),
-                      itemCount: instructionsProvider.data.steps!.length,
-                      itemBuilder: (context, index) {
-                        return Row(
-                          children: [
-                            Icon(Icons.arrow_circle_right),
-                            SizedBox(
-                              width: 70.w,
-                              child: Text(instructionsProvider.data.steps![index].step!)),
-                          ],
-                        );
-                      },
-                    ),
-                  );
-                }
-                else{
+                if (instructionsProvider.isLoaded == true) {
                   return Container(
-                    height: 10.h,width: 10.h,color: Colors.amber,
+                    margin: EdgeInsets.only(left: 5.w),
+                    height: instructionsProvider.data.steps!.length * 20.h,
+                    width: 90.w,
+                    child: instructionsProvider.showInstructions == false
+                        ? const Text("")
+                        : ListView.builder(
+                            physics: NeverScrollableScrollPhysics(),
+                            itemCount: instructionsProvider.data.steps!.length,
+                            itemBuilder: (context, index) {
+                              return Visibility(
+                                maintainState: true,
+                                visible: value.showInstructions!,
+                                child: Row(
+                                  children: [
+                                    Icon(Icons.arrow_circle_right),
+                                    SizedBox(width: 10),
+                                    SizedBox(
+                                        width: 70.w,
+                                        child: Text(instructionsProvider
+                                            .data.steps![index].step!)),
+                                    Divider(
+                                      height: 5.h,
+                                      color: Colors.black,
+                                    )
+                                  ],
+                                ),
+                              );
+                            },
+                          ),
                   );
+                } else {
+                  return Container();
                 }
               },
             )

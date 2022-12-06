@@ -2,6 +2,7 @@ class InstructionsModel {
   String? name;
   List<Steps>? steps;
   String? errorMessage;
+
   InstructionsModel({this.name, this.steps,this.errorMessage});
 
   InstructionsModel.fromJson(Map<String, dynamic> json) {
@@ -28,11 +29,11 @@ class Steps {
   int? number;
   String? step;
   List<Ingredients>? ingredients;
-  List<Equipment>? equipment;
-  Temperature? length;
+
+  Length? length;
 
   Steps(
-      {this.number, this.step, this.ingredients, this.equipment, this.length});
+      {this.number, this.step, this.ingredients, this.length});
 
   Steps.fromJson(Map<String, dynamic> json) {
     number = json['number'];
@@ -43,15 +44,9 @@ class Steps {
         ingredients!.add(new Ingredients.fromJson(v));
       });
     }
-    if (json['equipment'] != null) {
-      equipment = <Equipment>[];
-      json['equipment'].forEach((v) {
-        equipment!.add(new Equipment.fromJson(v));
-      });
-    }
-    length = json['length'] != null
-        ? new Temperature.fromJson(json['length'])
-        : null;
+
+    length =
+        json['length'] != null ? new Length.fromJson(json['length']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -61,9 +56,7 @@ class Steps {
     if (this.ingredients != null) {
       data['ingredients'] = this.ingredients!.map((v) => v.toJson()).toList();
     }
-    if (this.equipment != null) {
-      data['equipment'] = this.equipment!.map((v) => v.toJson()).toList();
-    }
+
     if (this.length != null) {
       data['length'] = this.length!.toJson();
     }
@@ -96,46 +89,13 @@ class Ingredients {
   }
 }
 
-class Equipment {
-  int? id;
-  String? name;
-  String? localizedName;
-  String? image;
-  Temperature? temperature;
-
-  Equipment(
-      {this.id, this.name, this.localizedName, this.image, this.temperature});
-
-  Equipment.fromJson(Map<String, dynamic> json) {
-    id = json['id'];
-    name = json['name'];
-    localizedName = json['localizedName'];
-    image = json['image'];
-    temperature = json['temperature'] != null
-        ? new Temperature.fromJson(json['temperature'])
-        : null;
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['id'] = this.id;
-    data['name'] = this.name;
-    data['localizedName'] = this.localizedName;
-    data['image'] = this.image;
-    if (this.temperature != null) {
-      data['temperature'] = this.temperature!.toJson();
-    }
-    return data;
-  }
-}
-
-class Temperature {
+class Length {
   int? number;
   String? unit;
 
-  Temperature({this.number, this.unit});
+  Length({this.number, this.unit});
 
-  Temperature.fromJson(Map<String, dynamic> json) {
+  Length.fromJson(Map<String, dynamic> json) {
     number = json['number'];
     unit = json['unit'];
   }

@@ -21,8 +21,11 @@ class InstructionsService {
       Response res = await dio.get("$url$id/analyzedInstructions",
           options: Options(headers: headers));
 
+
+
+
       
-      data = InstructionsModel.fromJson(res.data[1]);
+      data = InstructionsModel.fromJson(res.data[0]);
       
     
 
