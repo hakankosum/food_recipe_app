@@ -30,6 +30,7 @@ class _RecipeViewState extends State<RecipeView> {
   InstructionsProvider instructionsProvider = InstructionsProvider();
   TextStyle _textStyle =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
+  final ScrollController _scrollController=ScrollController();
 
   @override
   void initState() {
@@ -198,11 +199,13 @@ class _RecipeViewState extends State<RecipeView> {
                     child: instructionsProvider.showInstructions == false
                         ? const Text("")
                         : ListView.builder(
+                            controller: _scrollController,
                             physics: NeverScrollableScrollPhysics(),
                             itemCount: instructionsProvider.data.steps!.length,
                             itemBuilder: (context, index) {
                               return Visibility(
-                                maintainState: true,
+                                
+                              
                                 visible: value.showInstructions!,
                                 child: Row(
                                   children: [
