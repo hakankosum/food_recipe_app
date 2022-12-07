@@ -1,4 +1,4 @@
-#Tue Dec 06 10:13:29 TRT 2022
+#Wed Dec 07 09:58:20 TRT 2022
 base.0=C\:\\Users\\ISKUR.DESKTOP-AIKEIHG\\Desktop\\food_recipe_app\\build\\app\\intermediates\\dex\\debug\\mergeDexDebug\\classes.dex
 renamed.0=classes.dex
 path.0=classes.dex

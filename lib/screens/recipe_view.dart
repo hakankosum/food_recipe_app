@@ -28,6 +28,7 @@ class RecipeView extends StatefulWidget {
 
 class _RecipeViewState extends State<RecipeView> {
   InstructionsProvider instructionsProvider = InstructionsProvider();
+  
   TextStyle _textStyle =
       const TextStyle(fontSize: 16, fontWeight: FontWeight.w400);
   final ScrollController _scrollController=ScrollController();
@@ -36,6 +37,7 @@ class _RecipeViewState extends State<RecipeView> {
   void initState() {
     instructionsProvider =
         Provider.of<InstructionsProvider>(context, listen: false);
+    
     super.initState();
   }
 
@@ -184,7 +186,7 @@ class _RecipeViewState extends State<RecipeView> {
                 }, icon: Consumer(
                   builder: (BuildContext context, InstructionsProvider value,
                       Widget? child) {
-                    return Text(value.showInstructions! ? "Hide Instructions" : "Show Instructions");
+                    return Text(value.showInstructions ? "Hide Instructions" : "Show Instructions");
                   },
                 )),
               ),
@@ -206,7 +208,7 @@ class _RecipeViewState extends State<RecipeView> {
                               return Visibility(
                                 
                               
-                                visible: value.showInstructions!,
+                                visible: value.showInstructions,
                                 child: Row(
                                   children: [
                                     Icon(Icons.arrow_circle_right),

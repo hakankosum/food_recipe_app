@@ -7,8 +7,7 @@ class InstructionsProvider extends ChangeNotifier {
   InstructionsModel data = InstructionsModel();
 
   bool isLoaded = false;
-  bool? showInstructions;
-
+  bool showInstructions = false;
 
   GetInstructions(String id) async {
     isLoaded = false;
@@ -20,14 +19,10 @@ class InstructionsProvider extends ChangeNotifier {
   }
 
   changeVisibility() {
-    if (showInstructions.runtimeType == null) {
+    if (showInstructions == false) {
       showInstructions = true;
-    }
-    else if (showInstructions==true) {
-      showInstructions=false;
-    }
-    else if (showInstructions==false) {
-      showInstructions=true;
+    } else if (showInstructions == true) {
+      showInstructions = false;
     }
 
     print(showInstructions);

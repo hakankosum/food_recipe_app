@@ -15,8 +15,8 @@ class IngredientsByIdModel {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.ingredients != null) {
-      data['ingredients'] = this.ingredients!.map((v) => v.toJson()).toList();
+    if (ingredients != null) {
+      data['ingredients'] = ingredients!.map((v) => v.toJson()).toList();
     }
     return data;
   }
@@ -38,10 +38,10 @@ class Ingredients {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['name'] = this.name;
-    data['image'] = this.image;
-    if (this.amount != null) {
-      data['amount'] = this.amount!.toJson();
+    data['name'] = name;
+    data['image'] = image;
+    if (amount != null) {
+      data['amount'] = amount!.toJson();
     }
     return data;
   }
@@ -61,11 +61,11 @@ class Amount {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    if (this.metric != null) {
-      data['metric'] = this.metric!.toJson();
+    if (metric != null) {
+      data['metric'] = metric!.toJson();
     }
-    if (this.us != null) {
-      data['us'] = this.us!.toJson();
+    if (us != null) {
+      data['us'] = us!.toJson();
     }
     return data;
   }
@@ -84,8 +84,8 @@ class Metric {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['value'] = this.value;
-    data['unit'] = this.unit;
+    data['value'] = value;
+    data['unit'] = unit;
     return data;
   }
 }
